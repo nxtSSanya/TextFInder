@@ -19,7 +19,7 @@ Here a is the number of document in vector (a = 1...n), and b is relevance of qu
 
 
 # The exapmle of input data.
-cat dog
+cat dog</br?
 3
 fat dog ate a big sasuage
 funny bird is flying in the jungle
