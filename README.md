@@ -14,8 +14,8 @@ Also used TF-IDF rank. TF means the ratio of the number of occurrences of a cert
 6. Next n strings are the documents(I will add the ability to enter from a file later).
 7. And (n+1) string - you query(word, that you need to find in these documents).
 
-Program will print the answer in format: document_id = a, relevance = b
-Here a is the number of document in vector (a = 1...n), and b is relevance of query(in double type).
+Program will print the answer in format: document_id = a, relevance = b  
+Here a is the number of document in vector (a = 0...n), and b is relevance of query(in double type).
 
 
 # The exapmle of input data.
