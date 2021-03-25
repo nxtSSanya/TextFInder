@@ -19,11 +19,17 @@ Here a is the number of document in vector (a = 1...n), and b is relevance of qu
 
 
 # The exapmle of input data.
-cat dog</br?
+
+cat dog
+
 3
+
 fat dog ate a big sasuage
+
 funny bird is flying in the jungle
+
 At most one grammar option must be chosen out of ECMAScript, basic, extended, awk, grep, egrep. If no grammar is chosen, ECMAScript is assumed to be selected.
+
 grammar
 
 # Output for the example
