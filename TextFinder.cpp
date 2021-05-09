@@ -15,7 +15,7 @@ using namespace std;
 
 vector<string> ReturnTheFileDir() {
 	vector<string> s;
-	std::string path = "C:/Users/SanyaBooster/source/repos/TextFinder/TextFinder";
+	std::string path = "C:/Users/SanyaBooster/source/repos/TextFinder/TextFinder"; // current project dir
 	for (auto& p : fs::directory_iterator(path)) {
 		size_t pos = p.path().string().find(".txt");
 		if (pos != std::string::npos) {
