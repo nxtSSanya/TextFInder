@@ -1,36 +1,47 @@
-#pragma GCC optimize("O3")
-#pragma comment(linker, "/STACK:36777216")
 #define _CRT_SECURE_NO_WARNINGS
-#define all(x) begin(x), end(x)
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING 
 #include <iostream>
-#include <fstream>
-#include <functional>
-#include <cstdio>
-#include <climits>
-#include <cmath>
 #include <map>
 #include <set>
-#include <thread>
-#include <chrono>
-#include <algorithm>
-#include <unordered_map>
-#include <unordered_set>
 #include <string>
-#include <cstring>
-#include <stack>
-#include <queue>
 #include <vector>
-#include <cassert>
-//#include <bitset>
-#define ll long long
-#define ull unsigned long long
-#define endl "\n"
-#define rt(x) return(x)
+#include <fstream>
+#include <Windows.h>
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+
 using namespace std;
-map <int, long long> inversions;
-vector<int> Si;
-const int INF = 1 << 30;
-const ll LINF = 1ll << 62;
+
+
+vector<string> ReturnTheFileDir() {
+	vector<string> s;
+	std::string path = "C:/Users/SanyaBooster/source/repos/TextFinder/TextFinder";
+	for (auto& p : fs::directory_iterator(path)) {
+		size_t pos = p.path().string().find(".txt");
+		if (pos != std::string::npos) {
+			s.push_back(p.path().string());
+		}
+	}
+	return s;
+}
+
+string ReadDocs() {
+	std::cout << "Enter filename of document: "s;
+	string filename;
+	std::cin >> filename;
+	std::fstream in(filename);
+	cin.clear();
+	string s = "", str;
+	while (!in.eof()) {
+		getline(in, str);
+		s += str;
+		if (!in.eof()) {
+			s += '\n';
+		}
+	}
+	//cout << s << endl;
+	return s;
+}
 
 const int MAX_RESULT_DOCUMENT_COUNT = 5;
 
@@ -93,8 +104,8 @@ public:
 			matched_documents.begin(),
 			matched_documents.end(),
 			[](const Document& lhs, const Document& rhs) {
-			return lhs.relevance > rhs.relevance;
-		}
+				return lhs.relevance > rhs.relevance;
+			}
 		);
 		if (matched_documents.size() > MAX_RESULT_DOCUMENT_COUNT) {
 			matched_documents.resize(MAX_RESULT_DOCUMENT_COUNT);
@@ -157,22 +168,27 @@ private:
 
 SearchServer CreateSearchServer() {
 	SearchServer search_server;
+	std::cout << "Enter the stop words: ";
 	search_server.SetStopWords(ReadLine());
-
-	const int document_count = ReadLineWithNumber();
+	cout << "Number of docs: ";
+	int document_count; cin >> document_count;
 	for (int document_id = 0; document_id < document_count; ++document_id) {
-		search_server.AddDocument(document_id, ReadLine());
+		search_server.AddDocument(document_id, ReadDocs());
 	}
-
 	return search_server;
 }
 
 
 int main() {
+	std::cout << "Documents in current dir" << std::endl;
+	for (auto& i : ReturnTheFileDir()) {
+		cout << i << endl;
+	}
 	const SearchServer search_server = CreateSearchServer();
-
+	cin.clear();
+	getchar();
 	const string query = ReadLine();
-	for (auto &out : search_server.FindTopDocuments(query)) {
+	for (auto& out : search_server.FindTopDocuments(query)) {
 		cout << "document_id = " << out.id << ", relevance = " << out.relevance << endl;
 	}
 }
